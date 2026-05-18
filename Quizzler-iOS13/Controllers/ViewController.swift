@@ -15,6 +15,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var trueButton: UIButton!
     @IBOutlet weak var falseButton: UIButton!
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var optionOne: UIButton!
+    @IBOutlet weak var optionTwo: UIButton!
+    @IBOutlet weak var optionThree: UIButton!
     
     var quizBrain: QuizBrain = QuizBrain()
         
@@ -24,6 +27,9 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         updateProgressBar()
         questionLabel.text = quizBrain.getFirstQuestionText()
+        optionOne.setTitle((quizBrain.getFirstQuestionAnswers())[0], for: .normal)
+        optionTwo.setTitle((quizBrain.getFirstQuestionAnswers())[1], for: .normal)
+        optionThree.setTitle((quizBrain.getFirstQuestionAnswers())[2], for: .normal)
     }
     
     @IBAction func answerButtonPressed(_ sender: UIButton) {
@@ -34,7 +40,13 @@ class ViewController: UIViewController {
         updateProgressBar()
         updateScoreLabel()
         /// Get the next question
-        questionLabel.text = quizBrain.getNextQuestionText()
+        quizBrain.updateQuestionNumber()
+        let options = quizBrain.getCurrentQuestionAnswers()
+        questionLabel.text = quizBrain.getCurrentQuestionText()
+        optionOne.setTitle(options[0], for: .normal)
+        optionTwo.setTitle(options[1], for: .normal)
+        optionThree.setTitle(options[2], for: .normal)
+
     }
     
     
